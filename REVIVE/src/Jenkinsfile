@@ -180,7 +180,7 @@ pipeline {
                    trivy image --format table -o trivy-image-report.html devopseasylearning/s5wesley-do-it-yourself-cart-dynamodb:${BUILD_NUMBER}
                    trivy image --format table -o trivy-image-report.html devopseasylearning/s5wesley-do-it-yourself-orders:${BUILD_NUMBER}
                    trivy image --format table -o trivy-image-report.html devopseasylearning/s5wesley-do-it-yourself-orders_db:${BUILD_NUMBER}
-                   trivy image --format table -o trivy-image-report.html devopseasylearning/s5wesley-do-it-yourself-orders_db_rabbitmqi:${BUILD_NUMBER}
+                   trivy image --format table -o trivy-image-report.html devopseasylearning/s5wesley-do-it-yourself-orders_db_rabbitmq:${BUILD_NUMBER}
                    trivy image --format table -o trivy-image-report.html devopseasylearning/s5wesley-do-it-yourself-assets:${BUILD_NUMBER}
                    trivy image --format table -o trivy-image-report.html devopseasylearning/s5wesley-do-it-yourself-catalog-api:${BUILD_NUMBER}
                    trivy image --format table -o trivy-image-report.html devopseasylearning/s5wesley-do-it-yourself-catalog-db:${BUILD_NUMBER}
@@ -244,23 +244,23 @@ pipeline {
             }
         }
 
-        unstable {
-            script {
-                def channels = ['#devops-team','#group1-s5']
-                for (channel in channels) {
-                    slackSend(channel: channel, color: 'warning', message: "UNSTABLE: Application s5wesley-do-it-yourself-Cart Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-                }
-            }
-        }
+        // unstable {
+        //     script {
+        //         def channels = ['#devops-team','#group1-s5']
+        //         for (channel in channels) {
+        //             slackSend(channel: channel, color: 'warning', message: "UNSTABLE: Application s5wesley-do-it-yourself-Cart Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        //         }
+        //     }
+        // }
 
-        failure {
-            script {
-                def channels = ['#devops-team','#group1-s5']
-                for (channel in channels) {
-                    slackSend(channel: channel, color: '#FF0000', message: "FAILURE: Application s5wesley-do-it-yourself-Cart Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
-                }
-            }
-        }
+        // failure {
+        //     script {
+        //         def channels = ['#devops-team','#group1-s5']
+        //         for (channel in channels) {
+        //             slackSend(channel: channel, color: '#FF0000', message: "FAILURE: Application s5wesley-do-it-yourself-Cart Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+        //         }
+        //     }
+        // }
 
         cleanup {
             deleteDir()
